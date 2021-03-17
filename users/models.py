@@ -1,15 +1,34 @@
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser, PermissionsMixin
 from django.db import models
-from django.core.validators import RegexValidator, MinValueValidator, MaxValueValidator
+
+from .managers import CustomUserManager
 
 
-class UserModel(models.Model):
+# class CustomUser(AbstractUser):
+#     class Meta:
+#         db_table = 'auth_user'
+#
+#     username = None
+#     email = models.EmailField(unique=True)
+#
+#     USERNAME_FIELD = 'email'
+#     REQUIRED_FIELDS = []
+#
+#     objects = CustomUserManager()
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     class Meta:
-        db_table = 'users'
-        verbose_name = 'user'
+        db_table = 'auth_user'
 
-    name = models.CharField(max_length=20, validators=[RegexValidator('^[a-zA-Z]{2,20}$', 'name mush be only a-z A-Z, min 2 and max 20 chars')])
-    age = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(150)])
-    email = models.EmailField()
-    gender = models.CharField(max_length=20, default="male", blank=True)
-    create = models.DateTimeField(auto_now_add=True)
-    update = models.DateTimeField(auto_now=True)
+    email = models.EmailField(unique=True)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = CustomUserManager()
+
+
