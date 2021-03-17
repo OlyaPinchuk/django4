@@ -1,1 +1,3 @@
 .idea
+django4/__pycache__/
+users/__pycache__/
