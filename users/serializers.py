@@ -17,10 +17,14 @@ class UserSerializer(ModelSerializer):
         }
 
     def create(self, validated_data):
-        password = validated_data.pop('password')
-        user = UserModel(**validated_data)
-        user.set_password(password)
-        user.save()
-        print(validated_data)
+# 1st option
+        user = UserModel.objects.create_user(**validated_data)
+
+# 2nd option password = validated_data.pop('password')
+        # user = UserModel(**validated_data)
+        # user.set_password(password)
+        # user.save()
+        # print(validated_data)
+
         return user
 
