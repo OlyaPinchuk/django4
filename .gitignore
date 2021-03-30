@@ -3,3 +3,4 @@ django4/__pycache__/
 users/__pycache__/
 api/__pycache__/
 cars/__pycache__/
+cars/migrations/__pycache__/
